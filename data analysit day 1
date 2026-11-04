@@ -1,0 +1,896 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "c8e44040-3bf5-4626-adf5-08eb46ed8d11",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "pandas-version: 3.0.3\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "print(\"pandas-version:\", pd.__version__)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "1ce8b618-65e7-42fe-bc0b-23a66ccdd9e2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "numpy-version: 2.4.6\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "print(\"numpy-version:\",np.__version__)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "56736ee6-d577-428f-86cc-e50b84ce55a1",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "matplotlib-version: 3.11.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import matplotlib as plt\n",
+    "print(\"matplotlib-version:\",plt.__version__)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "f83b2571-97ed-499b-8749-be9eef978562",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mon    250\n",
+      "tue    480\n",
+      "wed    320\n",
+      "Name: order, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = pd.Series([250,480,320], index=[\"mon\", \"tue\", \"wed\"], name=\"order\") # a series: value + an index\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "1632bcc1-ac73-4f34-9749-25eb2049939f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0    250\n",
+      "1    480\n",
+      "2    320\n",
+      "Name: order, dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = pd.Series([250,480,320],name=\"order\")\n",
+    "print(s)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "242c3709-7dcd-46e1-b257-3551fb6ef931",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mon    250\n",
+      "tue    450\n",
+      "wed    550\n",
+      "Name: orders, dtype: int64\n",
+      "s['tue']        : 450\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = pd.Series([250, 450, 550], index=[\"mon\", \"tue\", \"wed\",], name=\"orders\") # PRINT(\"s*2 (vectprised):\\n\",5*2)\n",
+    "print(s)\n",
+    "print(\"s['tue']        :\",s[\"tue\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "0d1f6f2f-1d49-472e-a09a-26aee7c532e2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "mon    250\n",
+      "tue    450\n",
+      "wed    550\n",
+      "Name: orders, dtype: int64\n",
+      "s['tue']        : 450\n",
+      "s*2 (vectprised):\n",
+      " 10\n"
+     ]
+    }
+   ],
+   "source": [
+    "s = pd.Series([250, 450, 550], index=[\"mon\", \"tue\", \"wed\",], name=\"orders\") # PRINT(\"s*2 (vectprised):\\n\",5*2)\n",
+    "print(s)\n",
+    "print(\"s['tue']        :\",s[\"tue\"])\n",
+    "print(\"s*2 (vectprised):\\n\",5*2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "9fad4164-c384-4628-b096-5027d4a4f007",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>Branch</th>\n",
+       "      <th>Marks</th>\n",
+       "      <th>hours_studied</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>arav</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>4</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>vikas</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>66.0</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>rahul</td>\n",
+       "      <td>ECE</td>\n",
+       "      <td>77.0</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>rohan</td>\n",
+       "      <td>MCA</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>sara</td>\n",
+       "      <td>BCA</td>\n",
+       "      <td>89.0</td>\n",
+       "      <td>8</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Name Branch  Marks  hours_studied\n",
+       "0   arav    CSE   55.0              4\n",
+       "1  vikas    CSE   66.0              5\n",
+       "2  rahul    ECE   77.0              6\n",
+       "3  rohan    MCA    NaN              7\n",
+       "4   sara    BCA   89.0              8"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "students = pd.DataFrame({\n",
+    "    \"Name\": [\"arav\", \"vikas\", \"rahul\", \"rohan\", \"sara\"],\n",
+    "    \"Branch\": [\"CSE\", \"CSE\", \"ECE\", \"MCA\", \"BCA\"],\n",
+    "    \"Marks\": [55,66,77,np.nan,89],\n",
+    "    \"hours_studied\": [4,5,6,7,8]\n",
+    "                      })\n",
+    "students"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "14d552f0-d49c-4b1b-b268-c1779cc0bfd4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "shape  : (5, 4)\n",
+      "columns  : Index(['Name', 'Branch', 'Marks', 'hours_studied'], dtype='str')\n",
+      "dtypes  :\n",
+      " Name                 str\n",
+      "Branch               str\n",
+      "Marks            float64\n",
+      "hours_studied      int64\n",
+      "dtype: object\n",
+      "sample  : <bound method NDFrame.sample of     Name Branch  Marks  hours_studied\n",
+      "0   arav    CSE   55.0              4\n",
+      "1  vikas    CSE   66.0              5\n",
+      "2  rahul    ECE   77.0              6\n",
+      "3  rohan    MCA    NaN              7\n",
+      "4   sara    BCA   89.0              8>\n",
+      "\n",
+      "<class 'pandas.DataFrame'>\n",
+      "RangeIndex: 5 entries, 0 to 4\n",
+      "Data columns (total 4 columns):\n",
+      " #   Column         Non-Null Count  Dtype  \n",
+      "---  ------         --------------  -----  \n",
+      " 0   Name           5 non-null      str    \n",
+      " 1   Branch         5 non-null      str    \n",
+      " 2   Marks          4 non-null      float64\n",
+      " 3   hours_studied  5 non-null      int64  \n",
+      "dtypes: float64(1), int64(1), str(2)\n",
+      "memory usage: 330.0 bytes\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"shape  :\" ,students.shape)\n",
+    "print(\"columns  :\",students.columns)\n",
+    "print(\"dtypes  :\\n\",students.dtypes)\n",
+    "print(\"sample  :\",students.sample)\n",
+    "print()\n",
+    "students.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "id": "2a2f4468-1189-45ab-ba13-b2c9fcd26d2c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "---filter: CSE students scoring above 80---\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>Branch</th>\n",
+       "      <th>Marks</th>\n",
+       "      <th>hours_studied</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>vikas</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Name Branch  Marks  hours_studied\n",
+       "1  vikas    CSE   90.0              5"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "students = pd.DataFrame({\n",
+    "    \"Name\": [\"arav\", \"vikas\", \"rahul\", \"rohan\", \"sara\"],\n",
+    "    \"Branch\": [\"CSE\", \"CSE\", \"ECE\", \"MCA\", \"BCA\"],\n",
+    "    \"Marks\": [55,90,77,np.nan,89],\n",
+    "    \"hours_studied\": [4,5,6,7,8]\n",
+    "                      })\n",
+    "students[\"Name\"] # to access specific column.\n",
+    "students[[\"Name\",\"Marks\"]] # for more then one column, two brackets for location and to fetch list.\n",
+    "students.loc[0:2,\"Name\"] # used for location, shows last row.\n",
+    "students.iloc[0:2,0] # last row will not show.\n",
+    "students.iloc[0:2,0:2] # shows both rows and columns\n",
+    "students[students[\"Marks\"] > 80] # TO SHOW MARKS GREATER THEN 80.\n",
+    "students[students[\"Branch\"]==\"BCA\"] # to show a single branch.\n",
+    "print(\"---filter: CSE students scoring above 80---\")\n",
+    "display(students[(students[\"Branch\"] == \"CSE\") & (students[\"Marks\"]>80)]) # TO show the marks of a branch."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "id": "175723d2-fae6-4672-a2c6-67c8f82b7698",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = students.copy()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "id": "308aea99-4b5c-4dfa-ad2b-1fbf078dd218",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  marks_pct\n",
+      "0   arav    CSE   55.0              4       0.55\n",
+      "1  vikas    CSE   90.0              5       0.90\n",
+      "2  rahul    ECE   77.0              6       0.77\n",
+      "3  rohan    MCA    NaN              7        NaN\n",
+      "4   sara    BCA   89.0              8       0.89\n"
+     ]
+    }
+   ],
+   "source": [
+    "df[\"marks_pct\"] = df[\"Marks\"]/100 # Form a new column for percentage.\n",
+    "print (df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "id": "fbb6c797-30ac-4b19-98c3-41e8012a2407",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  marks_pct  passed\n",
+      "0   arav    CSE   55.0              4       0.55   False\n",
+      "1  vikas    CSE   90.0              5       0.90    True\n",
+      "2  rahul    ECE   77.0              6       0.77    True\n",
+      "3  rohan    MCA    NaN              7        NaN   False\n",
+      "4   sara    BCA   89.0              8       0.89    True\n"
+     ]
+    }
+   ],
+   "source": [
+    "df[\"passed\"] = df[\"Marks\"] >=70\n",
+    "print (df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "id": "94987a07-58f9-4e51-b09d-32296c283ac8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  marks_pct  passed Name_upper\n",
+      "0   arav    CSE   55.0              4       0.55   False       ARAV\n",
+      "1  vikas    CSE   90.0              5       0.90    True      VIKAS\n",
+      "2  rahul    ECE   77.0              6       0.77    True      RAHUL\n",
+      "3  rohan    MCA    NaN              7        NaN   False      ROHAN\n",
+      "4   sara    BCA   89.0              8       0.89    True       SARA\n"
+     ]
+    }
+   ],
+   "source": [
+    "df[\"Name_upper\"] =df[\"Name\"].str.upper() # to show data in capital letters.\n",
+    "print(df)\n",
+    "                    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "id": "3838f561-aa5d-4573-b9ae-03fdee29ee5c",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  marks_pct  passed Name_upper Name_lower\n",
+      "0   arav    CSE   55.0              4       0.55   False       ARAV       arav\n",
+      "1  vikas    CSE   90.0              5       0.90    True      VIKAS      vikas\n",
+      "2  rahul    ECE   77.0              6       0.77    True      RAHUL      rahul\n",
+      "3  rohan    MCA    NaN              7        NaN   False      ROHAN      rohan\n",
+      "4   sara    BCA   89.0              8       0.89    True       SARA       sara\n"
+     ]
+    }
+   ],
+   "source": [
+    "df[\"Name_lower\"] =df[\"Name\"].str.lower() # to show data in small letters.\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "id": "32e771bf-1a9d-43de-8b2b-bb19b78a791b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>Branch</th>\n",
+       "      <th>Marks</th>\n",
+       "      <th>hours_studied</th>\n",
+       "      <th>marks_pct</th>\n",
+       "      <th>passed</th>\n",
+       "      <th>Name_upper</th>\n",
+       "      <th>Name_lower</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>vikas</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0.90</td>\n",
+       "      <td>True</td>\n",
+       "      <td>VIKAS</td>\n",
+       "      <td>vikas</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>sara</td>\n",
+       "      <td>BCA</td>\n",
+       "      <td>89.0</td>\n",
+       "      <td>8</td>\n",
+       "      <td>0.89</td>\n",
+       "      <td>True</td>\n",
+       "      <td>SARA</td>\n",
+       "      <td>sara</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>rahul</td>\n",
+       "      <td>ECE</td>\n",
+       "      <td>77.0</td>\n",
+       "      <td>6</td>\n",
+       "      <td>0.77</td>\n",
+       "      <td>True</td>\n",
+       "      <td>RAHUL</td>\n",
+       "      <td>rahul</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>arav</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>4</td>\n",
+       "      <td>0.55</td>\n",
+       "      <td>False</td>\n",
+       "      <td>ARAV</td>\n",
+       "      <td>arav</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>rohan</td>\n",
+       "      <td>MCA</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>7</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>False</td>\n",
+       "      <td>ROHAN</td>\n",
+       "      <td>rohan</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Name Branch  Marks  hours_studied  marks_pct  passed Name_upper Name_lower\n",
+       "1  vikas    CSE   90.0              5       0.90    True      VIKAS      vikas\n",
+       "4   sara    BCA   89.0              8       0.89    True       SARA       sara\n",
+       "2  rahul    ECE   77.0              6       0.77    True      RAHUL      rahul\n",
+       "0   arav    CSE   55.0              4       0.55   False       ARAV       arav\n",
+       "3  rohan    MCA    NaN              7        NaN   False      ROHAN      rohan"
+      ]
+     },
+     "execution_count": 86,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sort_values(\"Marks\", ascending=False) # TO show data in decending order."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "id": "4632aa9a-c744-4e14-94f3-b103bd97497a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Name</th>\n",
+       "      <th>Branch</th>\n",
+       "      <th>Marks</th>\n",
+       "      <th>hours_studied</th>\n",
+       "      <th>marks_pct</th>\n",
+       "      <th>passed</th>\n",
+       "      <th>Name_upper</th>\n",
+       "      <th>Name_lower</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>arav</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>55.0</td>\n",
+       "      <td>4</td>\n",
+       "      <td>0.55</td>\n",
+       "      <td>False</td>\n",
+       "      <td>ARAV</td>\n",
+       "      <td>arav</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>rahul</td>\n",
+       "      <td>ECE</td>\n",
+       "      <td>77.0</td>\n",
+       "      <td>6</td>\n",
+       "      <td>0.77</td>\n",
+       "      <td>True</td>\n",
+       "      <td>RAHUL</td>\n",
+       "      <td>rahul</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>sara</td>\n",
+       "      <td>BCA</td>\n",
+       "      <td>89.0</td>\n",
+       "      <td>8</td>\n",
+       "      <td>0.89</td>\n",
+       "      <td>True</td>\n",
+       "      <td>SARA</td>\n",
+       "      <td>sara</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>vikas</td>\n",
+       "      <td>CSE</td>\n",
+       "      <td>90.0</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0.90</td>\n",
+       "      <td>True</td>\n",
+       "      <td>VIKAS</td>\n",
+       "      <td>vikas</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>rohan</td>\n",
+       "      <td>MCA</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>7</td>\n",
+       "      <td>NaN</td>\n",
+       "      <td>False</td>\n",
+       "      <td>ROHAN</td>\n",
+       "      <td>rohan</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Name Branch  Marks  hours_studied  marks_pct  passed Name_upper Name_lower\n",
+       "0   arav    CSE   55.0              4       0.55   False       ARAV       arav\n",
+       "2  rahul    ECE   77.0              6       0.77    True      RAHUL      rahul\n",
+       "4   sara    BCA   89.0              8       0.89    True       SARA       sara\n",
+       "1  vikas    CSE   90.0              5       0.90    True      VIKAS      vikas\n",
+       "3  rohan    MCA    NaN              7        NaN   False      ROHAN      rohan"
+      ]
+     },
+     "execution_count": 87,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.sort_values(\"Marks\", ascending=True) # TO show data in ascending order."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "id": "3b704789-5014-46ab-b8be-a3f824fe70ec",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  marks_pct  passed Name_upper  \\\n",
+      "0   arav    CSE   55.0              4       0.55   False       ARAV   \n",
+      "1  vikas    CSE   90.0              5       0.90    True      VIKAS   \n",
+      "2  rahul    ECE   77.0              6       0.77    True      RAHUL   \n",
+      "3  rohan    MCA    NaN              7        NaN   False      ROHAN   \n",
+      "4   sara    BCA   89.0              8       0.89    True       SARA   \n",
+      "\n",
+      "  Name_lower grade  \n",
+      "0       arav     d  \n",
+      "1      vikas     a  \n",
+      "2      rahul     c  \n",
+      "3      rohan   NaN  \n",
+      "4       sara     b  \n"
+     ]
+    }
+   ],
+   "source": [
+    "df[\"grade\"] = pd.cut(df[\"Marks\"],\n",
+    "                  bins = [0,69,79,89,100],\n",
+    "                  labels =[\"d\",\"c\",\"b\",\"a\"])\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "id": "82a2eae4-040f-45d4-b826-a8021bc3b0d2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      ".missing per column:\n",
+      " Name             0\n",
+      "Branch           0\n",
+      "Marks            1\n",
+      "hours_studied    0\n",
+      "marks_pct        1\n",
+      "passed           0\n",
+      "Name_upper       0\n",
+      "Name_lower       0\n",
+      "grade            1\n",
+      "dtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\".missing per column:\\n\", df.isna().sum())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "id": "b9076fd2-2f6a-4426-a8d3-877fae606c99",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "rows with any missing: 3\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"rows with any missing:\", df.isna().any(axis=0).sum())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "id": "bedd7cb4-7732-495d-ba92-f6d3118abaa3",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "median used to fill: 83.0\n",
+      "[55.0, 90.0, 77.0, 83.0, 89.0]\n"
+     ]
+    }
+   ],
+   "source": [
+    "filled = df[\"Marks\"].fillna(df[\"Marks\"].median()) # replace with the media.\n",
+    "print(\"median used to fill:\", df[\"Marks\"].median())\n",
+    "print(filled.tolist())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 111,
+   "id": "d4f7cb37-faf1-49f4-84ab-aec189d46e54",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    Name Branch  Marks  hours_studied  passed Name_upper Name_lower grade\n",
+      "0   arav    CSE   55.0              4   False       ARAV       arav     d\n",
+      "1  vikas    CSE   90.0              5    True      VIKAS      vikas     a\n",
+      "2  rahul    ECE   77.0              6    True      RAHUL      rahul     c\n",
+      "3  rohan    MCA    NaN              7   False      ROHAN      rohan   NaN\n",
+      "4   sara    BCA   89.0              8    True       SARA       sara     b\n"
+     ]
+    }
+   ],
+   "source": [
+    "df = df.drop(columns=\"marks_pct\")\n",
+    "print(df)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 112,
+   "id": "535459b0-2398-4a5c-a6bf-e414b50dd0b4",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method DataFrame.dropna of     Name Branch  Marks  hours_studied  passed Name_upper Name_lower grade\n",
+       "0   arav    CSE   55.0              4   False       ARAV       arav     d\n",
+       "1  vikas    CSE   90.0              5    True      VIKAS      vikas     a\n",
+       "2  rahul    ECE   77.0              6    True      RAHUL      rahul     c\n",
+       "3  rohan    MCA    NaN              7   False      ROHAN      rohan   NaN\n",
+       "4   sara    BCA   89.0              8    True       SARA       sara     b>"
+      ]
+     },
+     "execution_count": 112,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.dropna"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "04c5fe4d-448a-48fc-bf8a-fa85b7257c01",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
